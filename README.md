@@ -1,6 +1,5 @@
 # ESP32-C6 TFT Display Project
-
-This project connects an ESP32 microcontroller to an Adafruit touchscreen display.
+A local beach weather forecaster that displays live graphics and accurate 24-hour predictions for wind and temperature, connecting to WiFi via a simple mobile portal.
 
 ## Hardware Used
 * **ESP32-C6-DevKitC-1 V1.2**[cite: 3, 4]
