@@ -1,9 +1,10 @@
 #include <WiFi.h>
 #include <HTTPClient.h>
+#include <WiFiClientSecure.h> // NEW: Required for HTTPS
 #include <SPI.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_ILI9341.h>
-#include <Adafruit_STMPE610.h> // Changed to match your STMPE610 hardware
+#include <Adafruit_STMPE610.h> 
 #include <ArduinoJson.h> 
 #include <time.h> 
 #include <math.h>
@@ -21,8 +22,8 @@
 #define TOUCH_CS 19          
 
 // Initialize the objects
-Adafruit_ILI9341 display = Adafruit_ILI9341(display_CS, display_DC, -1);
-Adafruit_STMPE610 ts = Adafruit_STMPE610(TOUCH_CS);
+Adafruit_ILI9341 display = Adafruit_ILI9341(&SPI, display_CS, display_DC, -1);
+Adafruit_STMPE610 ts = Adafruit_STMPE610(TOUCH_CS, &SPI);
 
 bool isMainScreen = true;       
 unsigned long lastTouchTime = 0; 
@@ -242,20 +243,15 @@ void loop() {
     }
   }
 
-// --- ΚΩΔΙΚΑΣ ΝΤΕΤΕΚΤΙΒ ΓΙΑ ΤΗΝ ΑΦΗ ---
   if (ts.touched()) {
     TS_Point p = ts.getPoint();
     
-    // Αγνόησε τα "φαντάσματα" (τιμές 0,0) όταν σηκώνεις το δάχτυλο από την οθόνη
     if (p.x == 0 && p.y == 0) {
       return; 
     }
     
     if (millis() - lastTouchTime > 500) {
         
-        // Η ΣΩΣΤΗ ΧΑΡΤΟΓΡΑΦΗΣΗ (Άξονες αντιστραμμένοι λόγω Landscape)
-        // Το p.y ελέγχει πλέον τον οριζόντιο άξονα (0-320)
-        // Το p.x ελέγχει πλέον τον κάθετο άξονα (0-240)
         int touch_x = map(p.y, 300, 3800, 0, 320);
         int touch_y = map(p.x, 3600, 300, 0, 240);
         
@@ -263,22 +259,17 @@ void loop() {
         Serial.print(" | True Y: "); Serial.println(touch_y);
     
         if (isMainScreen) {
-          // Κουμπί για τις ρυθμίσεις (Πάνω αριστερή γωνία της οθόνης)
           if (touch_x < 100 && touch_y < 100) {            
             isMainScreen = false;
             drawScreen_2(); 
           }
         }
         else {
-          // --- SCREEN 2 BUTTONS ---
-          
-          // "RETURN" - Αριστερή μεριά (X μικρότερο από 160)
           if (touch_x < 160) {
             isMainScreen = true;
-            drawScreen_1(); // Επιστροφή
+            drawScreen_1(); 
             lastUpdate = 0; 
           }
-          // "FORGET NETWORK" - Δεξιά μεριά (X μεγαλύτερο ή ίσο με 160)
           else if (touch_x >= 160) {
             display.fillScreen(ILI9341_BLACK);
             display.setCursor(10, 30);
@@ -327,13 +318,19 @@ void loop() {
       String targetTime = String(currentHourStr);
       time_t nowTime; 
       time(&nowTime); 
+
+      // NEW: Secure HTTPS Client
+      WiFiClientSecure client;
+      client.setInsecure(); // Skip certificate verification
       HTTPClient http;
-      http.begin(serverName); 
+      http.begin(client, serverName); // Pass client to HTTP
+      
       int httpResponseCode = http.GET();
       if (httpResponseCode > 0) {
-        String payload = http.getString(); 
-        DynamicJsonDocument doc(16384); 
-        DeserializationError error = deserializeJson(doc, payload);
+        // NEW: ArduinoJson 7 syntax and stream parsing
+        JsonDocument doc; 
+        DeserializationError error = deserializeJson(doc, http.getStream());
+        
         if (!error) {
           int startIndex = 0;
           for (int i = 0; i < 72; i++) {
