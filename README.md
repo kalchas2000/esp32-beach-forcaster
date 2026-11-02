@@ -12,14 +12,14 @@ The pins mentioned in the Adafruit TFT Shield Pins are at the lots where the ard
 Here is the pin mapping:
 
 ESP32-C6 Pin -> Adafruit TFT Shield Pin 
-RST -> RESET                   
+RST -> 4               
 5 -> 5V                                                                                                                                                                                                                                                                                                                         
 G -> GND                                                                                                                                                                                                                                                                                                                         
 6 -> 13                                                                                                                                                                                                                                                                                                                        
 7 -> 11                                                                                                                                                                                                                                                                                                                         
 1 -> 12                                                                                                                                                                                                                                                                                                                         
-10 -> 10                                                                                                                                                                                                                                                                                                                         
-18 -> 9                                                                                                                                                                                                                                                                                                                         
+18 -> 10                                                                                                                                                                                                                                                                                                                         
+10 -> 9                                                                                                                                                                                                                                                                                                                         
 19 -> 8                                                                                                                                                                                                                                                                                                                         
 
 
