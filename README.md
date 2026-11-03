@@ -12,7 +12,7 @@ The pins mentioned in the Adafruit TFT Shield Pins are at the lots where the ard
 Here is the pin mapping:
 
 ESP32-C6 Pin -> Adafruit TFT Shield Pin                                                                                                                                                                                                                                                                                          
-RST -> 4               
+4 -> RST                
 5V -> 5V                                                                                                                                                                                                                                                                                                                         
 G -> GND                                                                                                                                                                                                                                                                                                                         
 6 -> 13                                                                                                                                                                                                                                                                                                                        
