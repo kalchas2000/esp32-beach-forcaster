@@ -11,9 +11,9 @@ Because this uses a shield designed for an Arduino, standard jumper wires are us
 The pins mentioned in the Adafruit TFT Shield Pins are at the lots where the arduino would have been so the name of the pins follow that of the arduino.
 Here is the pin mapping:
 
-ESP32-C6 Pin -> Adafruit TFT Shield Pin 
+ESP32-C6 Pin -> Adafruit TFT Shield Pin                                                                                                                                                                                                                                                                                          
 RST -> 4               
-5 -> 5V                                                                                                                                                                                                                                                                                                                         
+5V -> 5V                                                                                                                                                                                                                                                                                                                         
 G -> GND                                                                                                                                                                                                                                                                                                                         
 6 -> 13                                                                                                                                                                                                                                                                                                                        
 7 -> 11                                                                                                                                                                                                                                                                                                                         
