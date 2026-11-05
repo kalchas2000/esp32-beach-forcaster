@@ -40,5 +40,12 @@ To run this code, you will need to install the following libraries via the Ardui
 3. Select the ESP32-C6 board and the correct COM port from the tools menu.
 4. Click Upload.
 
-##Notes 
-A 3d case is also coming because the first one was not successful.
+##Case
+A 3d case is also available now on stl form and is 3d printer ready with a big opening on the back for easy install of both the screen and the esp32 contoller inside of the case.I personally used glue to stick both the Screen and the lid on their final positions.
+
+##Notes
+Here I have uploaded some of the final results of my project fully working with the custom 3d printed case.
+<img width="3024" height="4032" alt="IMG_0441" src="https://github.com/user-attachments/assets/5e46118a-e8fa-4f7b-b5c7-c6784a83c712" />
+<img width="3024" height="4032" alt="IMG_0442" src="https://github.com/user-attachments/assets/a9a614a4-7086-4c9e-9ec0-22be806862e4" />
+<img width="6048" height="8064" alt="IMG_0443" src="https://github.com/user-attachments/assets/00e0c5fc-482b-4ac9-ae8c-0c87f22ea3f8" />
+
